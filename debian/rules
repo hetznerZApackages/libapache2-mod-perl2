@@ -1,0 +1,61 @@
+#!/usr/bin/make -f
+
+TMP     = $(CURDIR)/debian/tmp
+MPR     = $(CURDIR)/ModPerl-Registry
+APR     = $(CURDIR)/Apache-Reload
+PVA     = $(shell perl -MConfig -e'print substr($$Config{vendorarch},1)')
+
+%:
+	dh $@ --with apache2
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		INSTALLDIRS=vendor \
+		MP_TRACE=0 \
+		MP_USE_DSO=1 \
+		MP_USE_STATIC=0 \
+		MP_CCOPTS="$(CFLAGS) -Wall -fgnu89-inline" \
+		MP_APR_CONFIG=/usr/bin/apr-config
+
+override_dh_auto_build:
+	dh_auto_build --parallel -- MODPERL_OPTIMIZE="$(CFLAGS) $(CPPFLAGS)" OPTIMIZE="$(CFLAGS) $(CPPFLAGS)"
+
+
+override_dh_auto_test:
+	APACHE_TEST_EXTRA_ARGS="-httpd_conf $(CURDIR)/debian/apache2.conf" \
+		LC_ALL=C \
+		dh_auto_test --max-parallel=1
+
+override_dh_clean:
+	dh_clean
+	rm -rf t/htdocs/hooks debian/docs
+	find . -name 'pod2htmd.tmp' -exec rm '{}' \;
+	find . -name 'pod2htmi.tmp' -exec rm '{}' \;
+	find . -name 'Makefile.old' -exec rm '{}' \;
+	rm -f Apache-Test/Apache-TestItSelf/t/SMOKE
+
+override_dh_install:
+	mkdir -p $(CURDIR)/debian/docs
+	perl debian/transform_pod2html.pl $(CURDIR) docs debian
+	install -d $(TMP)/usr/share/bug
+	install -m755 debian/libapache2-mod-perl2.bug $(TMP)/usr/share/bug/libapache2-mod-perl2
+	install -d $(TMP)/usr/share/libapache2-mod-perl2
+	mv $(TMP)/usr/bin/mp2bug $(TMP)/usr/share/libapache2-mod-perl2
+	rm $(TMP)/$(PVA)/Apache2/Reload.pm
+	rm $(TMP)/$(PVA)/Apache/SizeLimit.pm
+	rm $(TMP)/$(PVA)/Apache/Reload.pm
+	rm $(TMP)/usr/share/man/man3/Apache2::Reload.3pm
+	rm $(TMP)/usr/share/man/man3/Apache::SizeLimit.3pm
+	rm $(TMP)/usr/share/man/man3/Apache::Reload.3pm
+	dh_install
+
+override_dh_installexamples-indep:
+	dh_installexamples
+	file-rename 's,\.,,' debian/libapache2-mod-perl2-dev/usr/share/doc/libapache2-mod-perl2-dev/examples/code/.debug-*
+
+# These rules are needed because otherwise the build process
+# tries to re-make the 'build' directory and fails
+.PHONY: build
+
+build:
+	dh build

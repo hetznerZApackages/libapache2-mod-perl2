@@ -1,0 +1,99 @@
+Description: adjust test config to mod_authz_core changes in 2.4
+Origin: Gentoo
+Forwarded: no
+Author: Jorge Manuel B. S. Vicetto
+Reviewed-by: gregor herrmann <gregoa@debian.org>
+Last-Update: 2013-06-22
+
+--- a/t/response/TestModules/proxy.pm
++++ b/t/response/TestModules/proxy.pm
+@@ -47,9 +47,7 @@
+     <IfModule mod_proxy.c>
+         <Proxy http://@servername@:@port@/*>
+             <IfModule @ACCESS_MODULE@>
+-                Order Deny,Allow
+-                Deny from all
+-                Allow from @servername@
++                Require host @servername@
+             </IfModule>
+         </Proxy>
+ 
+--- a/t/response/TestAPI/access2.pm
++++ b/t/response/TestAPI/access2.pm
+@@ -103,16 +103,17 @@
+ 
+     <IfModule @ACCESS_MODULE@>
+         # needed to test $r->satisfies
+-        Allow from All
++        Require all granted
+     </IfModule>
+     AuthType Basic
+     AuthName "Access"
+-    Require my-user goo bar
+-    Require my-group xar tar
+-    <Limit POST>
+-       Require valid-user
+-    </Limit>
+-    Satisfy All
++    <RequireAll>
++        Require my-user goo bar
++        Require my-group xar tar
++        <Limit POST>
++            Require valid-user
++        </Limit>
++    </RequireAll>
+     <IfModule @AUTH_MODULE@>
+         # htpasswd -mbc auth-users goo foo
+         # htpasswd -mb auth-users bar mar
+--- a/t/filter/TestFilter/both_str_req_proxy.pm
++++ b/t/filter/TestFilter/both_str_req_proxy.pm
+@@ -62,9 +62,7 @@
+     <IfModule mod_proxy.c>
+         <Proxy http://@servername@:@port@/*>
+             <IfModule @ACCESS_MODULE@>
+-                Order Deny,Allow
+-                Deny from all
+-                Allow from @servername@
++                Require host @servername@
+             </IfModule>
+         </Proxy>
+ 
+--- a/t/protocol/TestProtocol/pseudo_http.pm
++++ b/t/protocol/TestProtocol/pseudo_http.pm
+@@ -154,21 +154,21 @@
+ 
+   <Location TestProtocol::pseudo_http>
+ 
+-      <IfModule @ACCESS_MODULE@>
+-          Order Deny,Allow
+-          Allow from @servername@
+-      </IfModule>
+-
+-      <IfModule @AUTH_MODULE@>
+-          # htpasswd -mbc basic-auth stas foobar
+-          # using md5 password so it'll work on win32 too
+-          AuthUserFile @ServerRoot@/htdocs/protocols/basic-auth
+-      </IfModule>
+-
+-      AuthName TestProtocol::pseudo_http
+-      AuthType Basic
+-      Require user stas
+-      Satisfy any
++      <RequireAny>
++        <IfModule @ACCESS_MODULE@>
++            Require host @servername@
++        </IfModule>
++
++        <IfModule @AUTH_MODULE@>
++            # htpasswd -mbc basic-auth stas foobar
++            # using md5 password so it'll work on win32 too
++            AuthUserFile @ServerRoot@/htdocs/protocols/basic-auth
++        </IfModule>
++
++        AuthName TestProtocol::pseudo_http
++        AuthType Basic
++        Require user stas
++      </RequireAny>
+ 
+   </Location>
+ 

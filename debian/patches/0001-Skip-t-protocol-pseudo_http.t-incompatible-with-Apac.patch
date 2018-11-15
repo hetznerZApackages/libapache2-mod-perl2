@@ -1,0 +1,32 @@
+Description: Skip t/protocol/pseudo_http.t, incompatible with Apache >= 2.4.20
+
+See Message-ID: <CACsi250G0azcA-XyJHGLxacpDEg_ezJ=tAUs31PyB7G_8-X6+A@mail.gmail.com>:
+
+  Effectively, mod_access_compat.c never supported per-connection
+  IP addresses since it was added.  The fact that it supported
+  per-connection hostname comparison was a quirk, and that the
+  pseudo_http tests only looked at hostname and not ip comparisons
+  was an oversight.
+
+Author: Niko Tyni <ntyni@debian.org>
+Forwarded: https://mail-archives.apache.org/mod_mbox/httpd-dev/201604.mbox/%3CCACsi250G0azcA-XyJHGLxacpDEg_ezJ=tAUs31PyB7G_8-X6+A@mail.gmail.com%3E
+Bug-Debian: https://bugs.debian.org/820824
+Reviewed-By: Xavier Guimard <x.guimard@free.fr>
+Last-update: 2018-08-06
+diff --git a/t/protocol/pseudo_http.t b/t/protocol/pseudo_http.t
+index 586c6ac..6e8bc81 100644
+--- a/t/protocol/pseudo_http.t
++++ b/t/protocol/pseudo_http.t
+@@ -22,6 +22,9 @@ my $passbad  = "foObaR";
+ # blocking socket bug fixed in 2.0.52
+ my $ok = $^O !~ /^(Open|Net)BSD$/i || need_min_apache_version('2.0.52');
+ 
++# Incompatible with Apache >= 2.4.20 <https://bugs.debian.org/820824>
++$ok = 0 if have_min_apache_version("2.4.20");
++
+ my @modules = ();
+ push @modules, 'mod_access_compat.c' if have_min_apache_version("2.4.0");
+ plan tests => 13, need need_auth, need_access, @modules, $ok;
+-- 
+2.8.1
+

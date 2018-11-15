@@ -1,0 +1,26 @@
+Author: Niko Tyni <ntyni@debian.org>
+Subject: [PATCH] Apache-Test: Fall back to SYSCONFDIR if PREFIX is not set
+Forwarded: http://www.gossamer-threads.com/lists/modperl/dev/105353
+
+Debian and Ubuntu packaged versions of Apache2 don't define PREFIX,
+so the build is filled with warnings like
+ APXS (/usr/bin/apxs2) query for PREFIX failed
+
+Falling back to SYSCONFDIR (which is /etc/apache2 on Debian)
+should be better than failing altogether.
+
+--- libapache2-mod-perl2.orig/Apache-Test/lib/Apache/TestConfigParse.pm
++++ libapache2-mod-perl2/Apache-Test/lib/Apache/TestConfigParse.pm
+@@ -87,8 +87,10 @@
+                        'user-supplied $base' ],
+                  [ $self->{inherit_config}->{ServerRoot},
+                        'httpd.conf inherited ServerRoot' ],
+-                 [ $self->apxs('PREFIX'),
+-                       'apxs-derived ServerRoot' ]);
++                 [ $self->apxs('PREFIX', 1), # ok_fail => 1
++                       'apxs-derived ServerRoot based on PREFIX' ],
++                 [ $self->apxs('SYSCONFDIR'),
++                       'apxs-derived ServerRoot based on SYSCONFDIR' ]);
+ 
+     # remove surrounding quotes if any
+     # e.g. Include "/tmp/foo.html"

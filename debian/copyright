@@ -1,0 +1,60 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: mod_perl2
+Upstream-Contact: Doug MacEachern <dougm@pobox.com>,
+                  Phillipe M. Chiasson <gozer@cpan.org>,
+                  Geoffrey Young <geoff@cpan.org>,
+                  Phillip M. Gollucci <pgollucci@p6m7g8.com>,
+                  Fred Moyer <fred@redhotpenguin.com>
+Source: https://perl.apache.org/download/
+
+Files: *
+Copyright: 2002-2011, Doug MacEachern
+ 2003, Mike Cramer
+ 2003, 2004, 2005, 2006, 2007, 2010, Philippe M. Chiasson <gozer@cpan.org>
+ 2005, 2006, Philip M. Gollucci <pgollucci@p6m7g8.com>
+ 2003, 2004, 2005, 2006, 2007, Geoffrey Young <geoff@cpan.org>
+ 2004, 2005, 2006, Randy Kobes
+ 2010, 2011, Torsten Foertsch <torsten.foertsch@gmx.net>
+ 2011, Stefan Fritsch
+ 2004, Ken
+ 2003, 2004, 2005, 2006, Stas
+ 2004, 2006, 2010, Joe Orton
+ 2004, Boris Zentner
+ 2010, Mark A. Hershberger
+ 2010, 2011, Fred Moyer <fred@redhotpenguin.com>
+ 2005, joes
+ 2004, David Wheeler
+ 2004, Steve Hay
+License: Apache-2.0
+
+Files: debian/*
+Copyright: 2002, 2004-2005, Thom May <thom@debian.org>
+ 2003-2006, Andres Salomon <dilinger@debian.org>
+ 2004, Adam Conrad <adconrad@0c3.net>
+ 2006, Andreas Barth <aba@not.so.argh.org>
+ 2006, Luk Claes <luk@debian.org>
+ 2006, Steinar H. Gunderson <sesse@debian.org>
+ 2007-2008, 2010-2011, Damyan Ivanov <dmn@debian.org>
+ 2007-2008, Gunnar Wolf <gwolf@debian.org>
+ 2007, Steve Langasek <vorlon@debian.org>
+ 2008, Niko Tyni <ntyni@debian.org>
+ 2008, 2012, gregor herrmann <gregoa@debian.org>
+ 2011, Nicholas Bamber <nicholas@periapt.co.uk>
+ 2018, Xavier Guimard <yadd@debian.org>
+License: Apache-2.0
+
+License: Apache-2.0
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ .
+     https://www.apache.org/licenses/LICENSE-2.0
+ .
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ .
+ On Debian systems, the complete text of the Apache License 2.0 can
+ be found in "/usr/share/common-licenses/Apache-2.0"

@@ -1,0 +1,80 @@
+Source: libapache2-mod-perl2
+Maintainer: Debian Perl Group <pkg-perl-maintainers@lists.alioth.debian.org>
+Uploaders: Damyan Ivanov <dmn@debian.org>,
+           Niko Tyni <ntyni@debian.org>,
+           gregor herrmann <gregoa@debian.org>,
+           Dominic Hargreaves <dom@earth.li>,
+           Ivan Kohler <ivan-debian@420.am>,
+           Xavier Guimard <yadd@debian.org>
+Section: httpd
+Priority: optional
+Build-Depends: perl,
+               apache2-dev,
+               apache2 (>= 2.4~),
+               debhelper (>= 10),
+               libbsd-resource-perl,
+               libcgi-pm-perl,
+               libdevel-symdump-perl,
+               libhtml-parser-perl,
+               libhtml-template-perl,
+               libperl-dev,
+               libreadonly-perl,
+               libwww-perl,
+               locales-all,
+               netbase,
+               rename
+Build-Conflicts: apache2-mpm-event
+Standards-Version: 4.1.5
+Vcs-Browser: https://salsa.debian.org/perl-team/modules/packages/libapache2-mod-perl2
+Vcs-Git: https://salsa.debian.org/perl-team/modules/packages/libapache2-mod-perl2.git
+Homepage: http://perl.apache.org/
+
+Package: libapache2-mod-perl2
+Architecture: any
+Depends: ${misc:Depends},
+         ${perl:Depends},
+         ${shlibs:Depends},
+         libdevel-symdump-perl,
+         liburi-perl,
+         libwww-perl,
+         netbase
+Recommends: libbsd-resource-perl,
+            libapache2-reload-perl
+Description: Integration of perl with the Apache2 web server
+ mod_perl allows the use of Perl for just about anything
+ Apache-related, including <Perl> sections in the config
+ files and the famous Apache::Registry module for caching
+ compiled scripts.
+ .
+ It can produce anywhere from a 400% to 2000% speed increase
+ on sites using perl scripts, and is used on many large script-
+ based web sites - for example, http://slashdot.org.
+
+Package: libapache2-mod-perl2-dev
+Architecture: all
+Section: libdevel
+Depends: ${misc:Depends},
+         libapache2-mod-perl2 (>= ${source:Version}),
+         libapache2-mod-perl2 (<< ${source:Version}.1~)
+Description: Integration of perl with the Apache2 web server - development files
+ mod_perl allows the use of Perl for just about anything
+ Apache-related, including <Perl> sections in the config
+ files and the famous Apache::Registry module for caching
+ compiled scripts.
+ .
+ This package contains the header files required for building
+ C-based modules integrating with mod_perl.
+
+Package: libapache2-mod-perl2-doc
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}
+Recommends: dwww
+Description: Integration of perl with the Apache2 web server - documentation
+ mod_perl allows the use of Perl for just about anything
+ Apache-related, including <Perl> sections in the config
+ files and the famous Apache::Registry module for caching
+ compiled scripts.
+ .
+ This package contains additional documentation for mod_perl tailored
+ to be indexed by the doc-base system.

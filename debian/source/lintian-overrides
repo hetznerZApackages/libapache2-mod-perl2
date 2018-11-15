@@ -1,0 +1,2 @@
+# autopkgtest-pkg-perl doesn't work for us so we roll our own
+libapache2-mod-perl2: nonteam-testsuite-header

@@ -1,0 +1,18 @@
+Description: LDFLAGS from the environment
+ Debian build system has a standard way to deploy various hardening compiler
+ and linker flags. This includes setting CPPFLAGS, CFLAGS and LDFLAGS. However,
+ LDFLAGS is ignored by Apache2::Build.
+Author: Damyan Ivanov <dmn@debian.org>
+Bug-Debian: https://bugs.debian.org/823967
+
+--- a/lib/Apache2/Build.pm
++++ b/lib/Apache2/Build.pm
+@@ -557,6 +557,8 @@ sub ldopts {
+             or warn "Failed to fix Irix symbol exporting\n";
+     }
+ 
++    $ldopts .= " $ENV{LDFLAGS}" if exists $ENV{LDFLAGS};
++
+     $ldopts;
+ }
+ 

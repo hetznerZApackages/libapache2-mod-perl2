@@ -1,0 +1,27 @@
+Description: Fallback to use native perl getppid() if Linux::Pid is not present
+Author: Guillem Jover <guillem@debian.org>
+Origin: vendor
+Bug-Debian: https://bugs.debian.org/684290
+Forwarded: no
+Last-Update: 2014-07-04
+
+
+--- a/Apache-SizeLimit/lib/Apache/SizeLimit/Core.pm
++++ b/Apache-SizeLimit/lib/Apache/SizeLimit/Core.pm
+@@ -139,10 +139,12 @@
+         *_platform_getppid = \&_perl_getppid;
+     }
+     elsif ($Config{'osname'} eq 'linux') {
+-        _load('Linux::Pid');
+-
+-        *_platform_getppid = \&_linux_getppid;
+-
++        if (eval { require Linux::Pid }) {
++            *_platform_getppid = \&_linux_getppid;
++        }
++        else {
++            *_platform_getppid = \&_perl_getppid;
++        }
+         if (eval { require Linux::Smaps && Linux::Smaps->new($$) }) {
+             $USE_SMAPS = 1;
+             *_platform_check_size = \&_linux_smaps_size_check;

@@ -1,0 +1,25 @@
+Description: Fix POD errors
+Forwarded: http://mail-archives.apache.org/mod_mbox/perl-modperl/201004.mbox/thread
+Author: Damyan Ivanov <dmn@debian.org>
+Last-Update: 2011-03-22
+Reviewed-by: Nicholas Bamber <nicholas@periapt.co.uk>
+--- libapache2-mod-perl2.orig/Apache-Test/lib/Apache/Test.pm
++++ libapache2-mod-perl2/Apache-Test/lib/Apache/Test.pm
+@@ -1042,6 +1042,8 @@
+ 
+ =over 4
+ 
++=over
++
+ =item basic_config
+ 
+   my $basic_cfg = Apache::Test::basic_config();
+@@ -1076,6 +1078,8 @@
+ 
+ =back
+ 
++=back
++
+ =head1 Test::More Integration
+ 
+ There are a few caveats if you want to use I<Apache::Test> with

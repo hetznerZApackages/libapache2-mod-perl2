@@ -1,0 +1,12 @@
+The script debian/parse_apache_changes.pl can be used to parse 
+the Changes and Apache-Test/Changes file to get the contributers
+and their copyright years. It is fairly crude. The users are generally 
+CPAN ids.
+
+---
+
+The 2.0.9^$rev "orig" tarball is created
+- from the trunk in upstream svn
+- and then the directory tarred up.
+
+SVN URL:  http://svn.apache.org/repos/asf/perl/modperl/

@@ -1,0 +1,3 @@
+todo /usr/share/doc/libapache2-mod-perl2-doc
+debian/index.html /usr/share/doc/libapache2-mod-perl2-doc
+debian/docs /usr/share/doc/libapache2-mod-perl2-doc

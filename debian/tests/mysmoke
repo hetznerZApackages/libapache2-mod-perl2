@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+T=$(mktemp -d)
+cp -a t/ $T
+cp debian/apache2.conf $T
+
+mkdir $T/t/logs
+
+# some tests use the top level Makefile as data, but we don't have it
+# so we cheat a bit...
+cp LICENSE $T/Makefile
+
+cat > $T/t/TEST <<EOF
+#!/usr/bin/perl
+use strict;
+use warnings FATAL => 'all';
+use lib "$T/t/lib";
+use ModPerl::TestRun ();
+ModPerl::TestRun->new->run(@ARGV);
+EOF
+chmod +x $T/t/TEST
+
+$T/t/TEST -httpd_conf $T/apache2.conf -apxs /usr/bin/apxs
+
+rm -rf $T

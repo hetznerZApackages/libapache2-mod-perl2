@@ -1,0 +1,6 @@
+version=3
+opts=dversionmangle=s/\+httpd24-r\d+$// \
+http://apache.org/dist/perl   mod_perl-([\d\.]+)\.tar\.gz
+
+opts=dversionmangle=s/\+httpd24-r\d+$// \
+https://metacpan.org/release/mod_perl   .*/mod_perl-v?(\d[\d.]+)\.(?:tar(?:\.gz|\.bz2)?|tgz|zip)

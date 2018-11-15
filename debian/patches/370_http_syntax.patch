@@ -1,0 +1,27 @@
+Description: [PATCH 1/2] Fix t/apache/read.t HTTP syntax for Apache 2.4.24
+ compatibility
+ HTTP/1.1 RFC 7230, section 2.6. "Protocol Versioning" says the HTTP name
+ is case sensitive. Starting with Apache 2.4.24, using lower case will
+ make the server issue a 400 Bad request response, causing a test failure.
+ .
+ https://tools.ietf.org/html/rfc7230#section-2.6
+Author: Niko Tyni <ntyni@debian.org>
+Bug-Debian: https://bugs.debian.org/849082
+Reviewed-By: Xavier Guimard <x.guimard@free.fr>
+Last-Update: 2018-08-06
+diff --git a/t/apache/read.t b/t/apache/read.t
+index 83670c9..9f7f504 100644
+--- a/t/apache/read.t
++++ b/t/apache/read.t
+@@ -24,7 +24,7 @@ close $fh;
+ 
+ my $size = length $data;
+ 
+-for my $string ("POST $location http/1.0",
++for my $string ("POST $location HTTP/1.0",
+                 "Content-length: $size",
+                 "") {
+     my $line = "$string\r\n";
+-- 
+2.11.0
+

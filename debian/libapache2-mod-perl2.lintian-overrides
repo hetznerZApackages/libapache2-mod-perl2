@@ -1,0 +1,6 @@
+# right, but that's the name since at least 2002 ...
+libapache2-mod-perl2: non-standard-apache2-module-package-name libapache2-mod-perl2 != libapache2-mod-perl
+# hopefully short lived override, see #796285
+libapache2-mod-perl2: apache2-module-depends-on-real-apache2-package apache2-bin
+# False positive
+libapache2-mod-perl2: spelling-error-in-manpage usr/share/man/man3/Apache::TestRunPHP.3pm.gz isnt isn't

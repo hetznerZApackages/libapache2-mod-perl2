@@ -1,0 +1,21 @@
+The following notes constitute a cursory opinion over what to do with the
+following bugs. The actul bug reports in BTS are authoritative and
+if I had had more confidence in these opinions I could have simply acted
+upon them - so please treat with a pinch of salt.
+
+Review bug reports
+      Can we close these?
+      -------------------
+      #617883 - Don't see why he does not just down load the package source.
+      #435480 - Ticket seems to state why I think this could be closed.
+      #617884 - Blatant incompatibility. Surely this is mod_perl 1 code.
+      #267969 - Cannot find a chronos package and this was a mod_perl 1 ticket.
+      #380296 - Ticket says it.
+      These look worth investigating
+      ---------------------
+      #418825 - Can we add these to a Debian FAQ and close the ticket?
+      #419952 - Can we add these to a Debian FAQ and close the ticket?
+      #428499 - Looks easy to check, patch and forward.
+      #590735 - Ticket seems to be well documented.
+      #620822 - Should be easy to investigate these.
+

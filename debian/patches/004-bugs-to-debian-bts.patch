@@ -1,0 +1,21 @@
+Description: direct bug reports to Debian BTS
+Forwarded: not-needed
+Author: Gunnar Wolf <gwolf@debian.org>
+Last-Update: 2011-03-22
+Reviewed-by: Nicholas Bamber <nicholas@periapt.co.uk>
+--- a/lib/ModPerl/TestReport.pm
++++ b/lib/ModPerl/TestReport.pm
+@@ -98,7 +98,11 @@ sub package2filename {
+     return $package;
+ }
+ 
+-sub report_to { 'modperl@perl.apache.org' }
+-
++# We are reporting to the Debian BTS, not directly to the upstream (Apache)
++sub report_to { 'submit@bugs.debian.org' }
++sub postit_note {
++    # No, no postit notes required :) This report will be typically
++    # embedded in reportbug's, so...
++}
+ 
+ 1;

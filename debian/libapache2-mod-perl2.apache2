@@ -1,0 +1,2 @@
+mod src/modules/perl/mod_perl.so
+mod debian/perl.load
