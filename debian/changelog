@@ -1,3 +1,10 @@
+libapache2-mod-perl2 (2.0.10-3+deb9hetz1~exp1) stretch-hetz-experimental; urgency=medium
+
+  * Backport from Buster to try and address segfaults in our Buster ported
+    Apache package
+
+ -- Walter Kleynscheldt <walter.kleynscheldt@hetzner.co.za>  Wed, 23 Oct 2019 08:02:45 +0200
+
 libapache2-mod-perl2 (2.0.10-3) unstable; urgency=medium
 
   [ Salvatore Bonaccorso ]
